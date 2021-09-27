@@ -1,0 +1,141 @@
+<div class="container">
+  <h1 style="color: aqua">CRUD Account</h1>
+  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+    Create Account
+  </button>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>UserName</th>
+      <th>PassWord</th>
+      <th>IMG</th>
+      <th>Email</th>
+      <th>Address</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let p of account">
+      <td>{{p.username}}</td>
+      <td>{{p.password}}</td>
+      <td><img src="{{p.img}}" width="200" height="200"></td>
+      <td>{{p.email}}</td>
+      <td>{{p.address}}</td>
+      <td>  <button type="button" class="btn btn-secondary" (click)="showEdit(p.username)" data-toggle="modal" data-target="#myModal2">
+        Edit
+      </button></td>
+      <td><button (click)="deleteAccount(p.username)" type="button" class="btn btn-danger">Delete</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- The Modal Create -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Create</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <form [formGroup]="accountFormGroup" >
+        <div class="modal-body">
+          <h3>UserName </h3>
+          <input placeholder="username" formControlName="username">
+          <!--        <input [(ngModel)]="name">-->
+          <p *ngIf="!accountFormGroup.get('username')?.valid && accountFormGroup.get('username')?.touched" style="color: red">Name min 6</p>
+          <h3>Password </h3>
+          <input placeholder="password" formControlName="password">
+          <!--        <input [(ngModel)]="price">-->
+          <p *ngIf="!accountFormGroup.get('password')?.valid && accountFormGroup.get('password')?.touched" style="color: red">Price > 0 </p>
+
+          <h3>Img </h3>
+          <input placeholder="img" formControlName="img">
+          <!--        <input [(ngModel)]="img">-->
+          <p *ngIf="!accountFormGroup.get('img')?.valid && accountFormGroup.get('img')?.touched" style="color: red">Not null</p>
+
+          <h3>Email </h3>
+          <input placeholder="email" formControlName="email">
+          <!--        <input [(ngModel)]="price">-->
+          <p *ngIf="!accountFormGroup.get('email')?.valid && accountFormGroup.get('email')?.touched" style="color: red">Price > 0 </p>
+
+          <h3>Address </h3>
+          <input placeholder="address" formControlName="address">
+          <!--        <input [(ngModel)]="price">-->
+          <p *ngIf="!accountFormGroup.get('address')?.valid && accountFormGroup.get('address')?.touched" style="color: red">Price > 0 </p>
+
+        </div>
+      </form>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button (click)="createAccount()"
+                [disabled]="accountFormGroup.invalid"
+                type="button" class="btn btn-success"
+                data-dismiss="modal">Create</button>
+
+
+        <button type="button" (click)="accountFormGroup.reset()" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--Modal Edit-->
+<div class="modal" id="myModal2">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Edit</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <form [formGroup]="accountFormGroup" >
+        <div class="modal-body">
+          <h3>UserName </h3>
+          <input placeholder="username" readonly formControlName="username">
+          <!--        <input [(ngModel)]="name">-->
+          <p *ngIf="!accountFormGroup.get('username')?.valid && accountFormGroup.get('username')?.touched" style="color: red">Name min 6</p>
+          <h3>Password </h3>
+          <input placeholder="password" formControlName="password">
+          <!--        <input [(ngModel)]="price">-->
+          <p *ngIf="!accountFormGroup.get('password')?.valid && accountFormGroup.get('password')?.touched" style="color: red">Price > 0 </p>
+
+          <h3>Img </h3>
+          <input placeholder="img" formControlName="img">
+          <!--        <input [(ngModel)]="img">-->
+          <p *ngIf="!accountFormGroup.get('img')?.valid && accountFormGroup.get('img')?.touched" style="color: red">Not null</p>
+
+          <h3>Email </h3>
+          <input placeholder="email" formControlName="email">
+          <!--        <input [(ngModel)]="price">-->
+          <p *ngIf="!accountFormGroup.get('email')?.valid && accountFormGroup.get('email')?.touched" style="color: red">Price > 0 </p>
+
+          <h3>Address </h3>
+          <input placeholder="address" formControlName="address">
+          <!--        <input [(ngModel)]="price">-->
+          <p *ngIf="!accountFormGroup.get('address')?.valid && accountFormGroup.get('address')?.touched" style="color: red">Price > 0 </p>
+
+        </div>
+      </form>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button (click)="editAccount()" type="button" class="btn btn-success" data-dismiss="modal">Edit</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+

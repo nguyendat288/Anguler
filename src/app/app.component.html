@@ -1,0 +1,7 @@
+<app-header></app-header>
+<app-account [account] ="account"
+(deleteAccountEmit)="deleteAccount($event)"
+(createAccountEmit)="creatAccount($event)"
+(editAccountEmit)="editAccount($event)"
+></app-account>
+<app-footer></app-footer>
