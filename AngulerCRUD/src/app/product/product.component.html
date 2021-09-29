@@ -1,6 +1,6 @@
 <div class="container">
   <h2>Table Product</h2>
-  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+  <button type="button" class="btn btn-success" routerLink="/product/create">
     Create Product
   </button>
   <table class="table table-striped">
@@ -9,7 +9,6 @@
       <th>Name</th>
       <th>img</th>
       <th>status</th>
-
       <th>price</th>
       <th>Edit</th>
       <th>Delete</th>
@@ -22,7 +21,7 @@
       <td *ngIf="p.status === true" style="color: blue">Còn hàng</td>
       <td *ngIf="p.status === false" style="color: red">hết hàng</td>
       <td>{{p.price}}</td>
-      <td>  <button type="button" class="btn btn-secondary" (click)="showEdit(p.name)" data-toggle="modal" data-target="#myModal2">
+      <td>  <button type="button" class="btn btn-secondary"  [routerLink]="['/product/edit/',p.name]">
         Edit
       </button></td>
       <td><button (click)="deleteProduct(p.name)" type="button" class="btn btn-danger">Delete</button></td>
@@ -32,86 +31,86 @@
 </div>
 
 
-<!-- The Modal Create -->
-<div class="modal" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
+<!--&lt;!&ndash; The Modal Create &ndash;&gt;-->
+<!--<div class="modal" id="myModal">-->
+<!--  <div class="modal-dialog">-->
+<!--    <div class="modal-content">-->
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Create</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
+<!--      &lt;!&ndash; Modal Header &ndash;&gt;-->
+<!--      <div class="modal-header">-->
+<!--        <h4 class="modal-title">Create</h4>-->
+<!--        <button type="button" class="close" data-dismiss="modal">&times;</button>-->
+<!--      </div>-->
 
-      <!-- Modal body -->
-      <form [formGroup]="productFormGroup" >
-      <div class="modal-body">
-        <h3>Name </h3>
-        <input placeholder="name" formControlName="name">
-<!--        <input [(ngModel)]="name">-->
-        <p *ngIf="!productFormGroup.get('name')?.valid && productFormGroup.get('name')?.touched" style="color: red">Name min 6</p>
-        <h3>Price </h3>
-        <input placeholder="price" formControlName="price">
-<!--        <input [(ngModel)]="price">-->
-        <p *ngIf="!productFormGroup.get('price')?.valid && productFormGroup.get('price')?.touched" style="color: red">Price > 0 </p>
+<!--      &lt;!&ndash; Modal body &ndash;&gt;-->
+<!--      <form [formGroup]="productFormGroup" >-->
+<!--      <div class="modal-body">-->
+<!--        <h3>Name </h3>-->
+<!--        <input placeholder="name" formControlName="name">-->
+<!--&lt;!&ndash;        <input [(ngModel)]="name">&ndash;&gt;-->
+<!--        <p *ngIf="!productFormGroup.get('name')?.valid && productFormGroup.get('name')?.touched" style="color: red">Name min 6</p>-->
+<!--        <h3>Price </h3>-->
+<!--        <input placeholder="price" formControlName="price">-->
+<!--&lt;!&ndash;        <input [(ngModel)]="price">&ndash;&gt;-->
+<!--        <p *ngIf="!productFormGroup.get('price')?.valid && productFormGroup.get('price')?.touched" style="color: red">Price > 0 </p>-->
 
-        <h3>Img </h3>
-        <input placeholder="img" formControlName="img">
-<!--        <input [(ngModel)]="img">-->
-        <p *ngIf="!productFormGroup.get('img')?.valid && productFormGroup.get('img')?.touched" style="color: red">Not null</p>
+<!--        <h3>Img </h3>-->
+<!--        <input placeholder="img" formControlName="img">-->
+<!--&lt;!&ndash;        <input [(ngModel)]="img">&ndash;&gt;-->
+<!--        <p *ngIf="!productFormGroup.get('img')?.valid && productFormGroup.get('img')?.touched" style="color: red">Not null</p>-->
 
-      </div>
-        </form>
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button (click)="createProduct()"
-                [disabled]="productFormGroup.invalid"
-                type="button" class="btn btn-success"
-                data-dismiss="modal">Create</button>
-
-
-        <button type="button" (click)="productFormGroup.reset()" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+<!--      </div>-->
+<!--        </form>-->
+<!--      &lt;!&ndash; Modal footer &ndash;&gt;-->
+<!--      <div class="modal-footer">-->
+<!--        <button (click)="createProduct()"-->
+<!--                [disabled]="productFormGroup.invalid"-->
+<!--                type="button" class="btn btn-success"-->
+<!--                data-dismiss="modal">Create</button>-->
 
 
-<!--Modal Edit-->
-<div class="modal" id="myModal2">
-  <div class="modal-dialog">
-    <div class="modal-content">
+<!--        <button type="button" (click)="productFormGroup.reset()" class="btn btn-danger" data-dismiss="modal">Close</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Edit</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
 
-      <!-- Modal body -->
-      <form [formGroup]="productFormGroup" >
-      <div class="modal-body">
-        <h3>Name </h3>
-<!--        <input [(ngModel)]="name" readonly >-->
-        <input placeholder="name" readonly formControlName="name" >
-        <h3>Price </h3>
-        <input placeholder="price" formControlName="price">
-        <!--        <input [(ngModel)]="price">-->
-        <h3>Img </h3>
-        <input placeholder="img" formControlName="img">
+<!--&lt;!&ndash;Modal Edit&ndash;&gt;-->
+<!--<div class="modal" id="myModal2">-->
+<!--  <div class="modal-dialog">-->
+<!--    <div class="modal-content">-->
 
-        <!--        <input [(ngModel)]="img">-->
-      </div>
-      </form>
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button (click)="editProduct()" type="button" class="btn btn-success" data-dismiss="modal">Edit</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
+<!--      &lt;!&ndash; Modal Header &ndash;&gt;-->
+<!--      <div class="modal-header">-->
+<!--        <h4 class="modal-title">Edit</h4>-->
+<!--        <button type="button" class="close" data-dismiss="modal">&times;</button>-->
+<!--      </div>-->
 
-    </div>
-  </div>
-</div>
+<!--      &lt;!&ndash; Modal body &ndash;&gt;-->
+<!--      <form [formGroup]="productFormGroup" >-->
+<!--      <div class="modal-body">-->
+<!--        <h3>Name </h3>-->
+<!--&lt;!&ndash;        <input [(ngModel)]="name" readonly >&ndash;&gt;-->
+<!--        <input placeholder="name" readonly formControlName="name" >-->
+<!--        <h3>Price </h3>-->
+<!--        <input placeholder="price" formControlName="price">-->
+<!--        &lt;!&ndash;        <input [(ngModel)]="price">&ndash;&gt;-->
+<!--        <h3>Img </h3>-->
+<!--        <input placeholder="img" formControlName="img">-->
+
+<!--        &lt;!&ndash;        <input [(ngModel)]="img">&ndash;&gt;-->
+<!--      </div>-->
+<!--      </form>-->
+<!--      &lt;!&ndash; Modal footer &ndash;&gt;-->
+<!--      <div class="modal-footer">-->
+<!--        <button (click)="editProduct()" type="button" class="btn btn-success" data-dismiss="modal">Edit</button>-->
+<!--        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>-->
+<!--      </div>-->
+
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 
 
 

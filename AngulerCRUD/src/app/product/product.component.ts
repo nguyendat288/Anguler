@@ -1,19 +1,7 @@
 import {Component, Input, OnInit, Output} from '@angular/core';
-import {EventEmitter} from "@angular/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-class Product {
-  name: string;
-  price: number;
-  img: string;
-  status : boolean;
-
-  constructor(name: string, price: number, img: string,status : boolean) {
-    this.name = name;
-    this.price = price;
-    this.img = img;
-    this.status = status;
-  }
-}
+import { Product } from '../model/product';
+import {ProductService} from "../service/product.service";
 
 @Component({
   selector: 'app-product',
@@ -21,15 +9,11 @@ class Product {
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  productFormGroup! : FormGroup
-
-  @Input()
+  productFormGroup!: FormGroup
   products: Product[] = [];
-   @Output() deleteProductEmit = new EventEmitter<string>();
-   @Output() createProductEmit = new EventEmitter<Product>();
-   @Output() editProductEmit = new EventEmitter<Product>();
 
-  constructor() {
+  constructor(private productservice: ProductService) {
+    this.products = productservice.products;
   }
 
 
@@ -42,28 +26,19 @@ export class ProductComponent implements OnInit {
     })
   }
 
-deleteProduct(name : string){
-this.deleteProductEmit.emit(name);
-}
-  createProduct() {
-    this.createProductEmit.emit(this.productFormGroup.value);
-    this.productFormGroup.reset();
+  deleteProduct(name: string) {
+    this.productservice.deleteProduct(name);
   }
-showEdit(name : string){
-    for(let i=0 ;i<this.products.length;i++){
-      if(this.products[i].name===name){
-        this.productFormGroup.get('name')?.setValue(this.products[i].name);
-        this.productFormGroup.get('img')?.setValue(this.products[i].img);
-        this.productFormGroup.get('price')?.setValue(this.products[i].price);
 
-       return;
-      }
-    }
-}
+  createProduct() {
+    this.productservice.creatProduct(this.productFormGroup.value);
+    this.productFormGroup.get('status')?.setValue(true);
+  }
 
   editProduct(){
-    this.editProductEmit.emit(this.productFormGroup.value);
-    this.productFormGroup.reset();
+   this.productservice.editProduct(this.productFormGroup.value);
+    this.productFormGroup.get('status')?.setValue(true);
+
   }
 
 }

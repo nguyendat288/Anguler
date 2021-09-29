@@ -1,0 +1,26 @@
+<h2 style="color: aqua">Edit Product</h2>
+<div class="container">
+  <form [formGroup]="productForm">
+    <div class="form-group">
+      <label for="email">Name : </label>
+      <input type="email" class="form-control" formControlName="name" placeholder="Enter name" id="email">
+    </div>
+    <div class="form-group">
+      <label> Price : </label>
+      <input  class="form-control" placeholder="Enter price" formControlName="price" >
+    </div>
+    <div class="form-group">
+      <label> Img : </label>
+      <input  class="form-control" placeholder="Enter img" formControlName="img" >
+    </div>
+    <div class="form-group">
+      <label> Status : </label>
+      <select formControlName="status">
+        <option [ngValue]="true">Còn hàng</option>
+        <option [ngValue]="false">Hết hàng</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary" (click)="editProduct()">Submit</button>
+  </form>
+</div>
